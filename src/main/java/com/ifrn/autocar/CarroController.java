@@ -56,4 +56,12 @@ public class CarroController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/rabbitmq")
+    public String enviarMensagem(String mensagem) {
+        System.out.println("Mensagem: " + mensagem);
+        RabbitMQ.escreverMensagem(mensagem);
+
+        return "Carro salvo com sucesso";
+    }
 }
