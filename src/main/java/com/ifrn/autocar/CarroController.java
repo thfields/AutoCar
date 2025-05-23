@@ -58,10 +58,10 @@ public class CarroController {
     }
 
     @PostMapping("/rabbitmq")
-    public String enviarMensagem(String mensagem) {
+    public String enviarMensagem(@RequestBody String mensagem) {
         System.out.println("Mensagem: " + mensagem);
         RabbitMQ.escreverMensagem(mensagem);
 
-        return "Carro salvo com sucesso";
+        return "Mensagem enviada com sucesso";
     }
 }
