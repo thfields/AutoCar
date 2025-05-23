@@ -1,10 +1,12 @@
 package com.ifrn.autocar;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +65,14 @@ public class CarroController {
         RabbitMQ.escreverMensagem(mensagem);
 
         return "Mensagem enviada com sucesso";
+    }
+
+    @GetMapping("/rabbitmq")
+    public void lerMensagem() throws IOException {
+        String resposta  = RabbitMQ.lerMensagem();
+        ObjectMapper mapper = new ObjectMapper();
+        Carro a = mapper.readValue(resposta, Carro.class);
+        carroRepository.save(a);
+        System.out.println("Resposta: " + resposta);
     }
 }

@@ -33,13 +33,14 @@ public class RabbitMQ {
         }
     }
 
-    public static void lerMensagem() throws IOException {
+    public static String lerMensagem() throws IOException {
         ConnectionFactory factory;
         Connection connection;
         Channel channel;
 
-        String QUEUE_NAME1 = "teste";
-        String EXCHANGE_NAME1 = "teste";
+        String QUEUE_NAME1 = "Heliel";
+        String EXCHANGE_NAME1 = "Heliel";
+        final String[] resposta = {""};
         try {
             factory = new ConnectionFactory();
             factory.setUri("amqp://10.209.2.162:5672");
@@ -58,8 +59,11 @@ public class RabbitMQ {
             //binding queues to exchanges
             channel.queueBind(QUEUE_NAME1, EXCHANGE_NAME1, "");
 
+
+
             DeliverCallback deliverCallbackQuestion = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                resposta[0] = message;
                 System.out.println("MENSAGEM RECEBIDA = '" + message + "'");
             };
 
@@ -68,6 +72,8 @@ public class RabbitMQ {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return resposta[0];
     }
 
 }
