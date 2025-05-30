@@ -16,6 +16,9 @@ public class CarroController {
     @Autowired
     CarroRepository carroRepository;
 
+    @Autowired
+    RabbitMQ rabbitMQ;
+
     @GetMapping("/carro/{id}")
     public ResponseEntity<Carro> getById(@PathVariable int id) {
         Optional<Carro> carroOptional = carroRepository.findById(id);
@@ -62,17 +65,21 @@ public class CarroController {
     @PostMapping("/rabbitmq")
     public String enviarMensagem(@RequestBody String mensagem) {
         System.out.println("Mensagem: " + mensagem);
-        RabbitMQ.escreverMensagem(mensagem);
-
+        rabbitMQ.escreverMensagem(mensagem);  // Agora usando a instância
         return "Mensagem enviada com sucesso";
     }
 
     @GetMapping("/rabbitmq")
     public void lerMensagem() throws IOException {
-        String resposta  = RabbitMQ.lerMensagem();
+        String resposta = rabbitMQ.lerMensagem();  // Agora usando a instância
         ObjectMapper mapper = new ObjectMapper();
         Carro a = mapper.readValue(resposta, Carro.class);
         carroRepository.save(a);
         System.out.println("Resposta: " + resposta);
+    }
+
+    @GetMapping("/logs")
+    public List<Log> getLogs() {
+        return rabbitMQ.getLogRepository().findAll();
     }
 }
