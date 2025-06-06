@@ -1,5 +1,7 @@
-package com.ifrn.autocar;
+package com.ifrn.autocar.comunication;
 
+import com.ifrn.autocar.models.Log;
+import com.ifrn.autocar.repositories.LogRepository;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -12,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class RabbitMQ {
-    private final static String QUEUE_NAME = "thiago";
+    private final static String QUEUE_NAME = "log";
 
     @Autowired
     private LogRepository logRepository;
@@ -52,8 +54,8 @@ public class RabbitMQ {
         Connection connection;
         Channel channel;
 
-        String QUEUE_NAME1 = "Heliel";
-        String EXCHANGE_NAME1 = "Heliel";
+        String QUEUE_NAME1 = "Marcos";
+        String EXCHANGE_NAME1 = "Marcos";
         final String[] resposta = {""};
 
         try {
@@ -81,6 +83,7 @@ public class RabbitMQ {
             };
 
             channel.basicConsume(QUEUE_NAME1, true, deliverCallbackQuestion, consumerTag -> {});
+            channel.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

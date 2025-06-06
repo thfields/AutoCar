@@ -1,4 +1,4 @@
-package com.ifrn.autocar;
+package com.ifrn.autocar.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;

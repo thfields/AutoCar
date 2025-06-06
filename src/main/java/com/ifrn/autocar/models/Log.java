@@ -1,4 +1,4 @@
-package com.ifrn.autocar;
+package com.ifrn.autocar.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

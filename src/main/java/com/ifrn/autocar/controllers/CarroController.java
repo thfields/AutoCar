@@ -1,6 +1,10 @@
-package com.ifrn.autocar;
+package com.ifrn.autocar.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ifrn.autocar.repositories.CarroRepository;
+import com.ifrn.autocar.comunication.RabbitMQ;
+import com.ifrn.autocar.models.Carro;
+import com.ifrn.autocar.models.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
