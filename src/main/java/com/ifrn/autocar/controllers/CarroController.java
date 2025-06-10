@@ -24,7 +24,7 @@ public class CarroController {
     RabbitMQ rabbitMQ;
 
     @GetMapping("/carro/{id}")
-    public ResponseEntity<Carro> getById(@PathVariable int id) {
+    public ResponseEntity<Carro> getById(@PathVariable Long id) {
         Optional<Carro> carroOptional = carroRepository.findById(id);
         if (carroOptional.isPresent()) {
             return ResponseEntity.ok(carroOptional.get());
@@ -46,12 +46,12 @@ public class CarroController {
 
     @DeleteMapping("/carro/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletarCarro(@PathVariable int id) {
+    public void deletarCarro(@PathVariable Long id) {
         carroRepository.deleteById(id);
     }
 
     @PutMapping("/carro/{id}")
-    public ResponseEntity<Carro> atualizarCarro(@PathVariable int id, @RequestBody Carro carroAtualizado) {
+    public ResponseEntity<Carro> atualizarCarro(@PathVariable Long id, @RequestBody Carro carroAtualizado) {
         Optional<Carro> carroOptional = carroRepository.findById(id);
         if (carroOptional.isPresent()) {
             Carro carroExistente = carroOptional.get();

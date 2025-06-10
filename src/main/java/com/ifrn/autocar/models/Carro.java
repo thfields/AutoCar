@@ -12,9 +12,9 @@ import lombok.Data;
 public class Carro {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private int id;
+    private Long id;
     private String marca;
     private String modelo;
     private int ano;
