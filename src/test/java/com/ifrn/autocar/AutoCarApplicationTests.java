@@ -61,6 +61,70 @@ class AutoCarApplicationTests {
 
     }
 
+    @Test
+    void testPutCarro(){
+        Carro carro = new Carro();
+        carro.setMarca("Porsche");
+        carro.setModelo("Cayman");
+        carro.setAno(2025);
+        carroRepository.save(carro);
+        System.out.println("carro criado: " + carro.getModelo());
+
+        String expected = "Boxster";
+
+        carro.setModelo("Boxster");
+        carroRepository.save(carro);
+        String actual = carro.getModelo();
+        Assertions.assertEquals(expected, actual);
+        System.out.println("carro alterado: " + carro.getModelo());
+    }
+
+    @Test
+    void testFindAllCarros(){
+        Carro carro = new Carro();
+        carro.setMarca("Chevrolet");
+        carro.setModelo("Onix");
+        carro.setAno(2022);
+        carro = carroRepository.save(carro);
+        System.out.println("carro criado: " + carro.getMarca());
+
+        Carro carro2 = new Carro();
+        carro2.setMarca("Porsche");
+        carro2.setModelo("Boxster");
+        carro2.setAno(2022);
+        carro2 = carroRepository.save(carro2);
+        System.out.println("carro criado: " + carro2.getMarca());
+
+        Carro carro3 = new Carro();
+        carro3.setMarca("volkswagen");
+        carro3.setModelo("Fusca");
+        carro3.setAno(1997);
+        carro3 = carroRepository.save(carro3);
+        System.out.println("carro criado: " + carro3.getMarca());
+
+        int expected = 3;
+        int actual = carroRepository.findAll().size();
+        Assertions.assertEquals(expected, actual);
+
+        System.out.println("carros criados: " + carroRepository.findAll());
+    }
+
+    @Test
+    void testFindCarroById(){
+        Carro carro3 = new Carro();
+        carro3.setMarca("volkswagen");
+        carro3.setModelo("Fusca");
+        carro3.setAno(1997);
+        carro3 = carroRepository.save(carro3);
+        System.out.println("carro criado: " + carro3.getMarca());
+
+        String expected = "Fusca";
+        if( carroRepository.findById(carro3.getId()).isPresent() ){
+            String actual = carroRepository.findById(carro3.getId()).get().getModelo();
+            Assertions.assertEquals(expected, actual);
+        }
+    }
+
     @AfterEach
     void tearDown(){
         carroRepository.deleteAll();
