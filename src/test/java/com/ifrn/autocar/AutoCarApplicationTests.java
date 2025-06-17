@@ -2,12 +2,15 @@ package com.ifrn.autocar;
 
 import com.ifrn.autocar.models.Carro;
 import com.ifrn.autocar.repositories.CarroRepository;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @SpringBootTest
@@ -123,6 +126,21 @@ class AutoCarApplicationTests {
             String actual = carroRepository.findById(carro3.getId()).get().getModelo();
             Assertions.assertEquals(expected, actual);
         }
+    }
+
+    @Test
+    void testHttpCon() throws JSONException, IOException {
+        String resposta = HttpCon.teste("http://10.209.2.162:8080/getCarro?id=2");
+        System.out.println(resposta);
+        Assertions.assertEquals("Mitsubish",resposta);
+    }
+
+    @Test
+    void testHttpPaulo() throws JSONException, IOException {
+        String resposta = HttpCon.teste("http://10.209.1.219:8080/car/19");
+        System.out.println(resposta);
+        JSONObject obj = new JSONObject(resposta);
+        Assertions.assertEquals("BMW",obj.getString("marca"));
     }
 
     @AfterEach

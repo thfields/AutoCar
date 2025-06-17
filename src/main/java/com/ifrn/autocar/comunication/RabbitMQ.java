@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class RabbitMQ {
-    private final static String QUEUE_NAME = "log";
+    private final static String QUEUE_NAME = "Thiago";
 
     @Autowired
     private LogRepository logRepository;
@@ -54,8 +54,8 @@ public class RabbitMQ {
         Connection connection;
         Channel channel;
 
-        String QUEUE_NAME1 = "Marcos";
-        String EXCHANGE_NAME1 = "Marcos";
+        String QUEUE_NAME1 = "Paulo";
+        String EXCHANGE_NAME1 = "Paulo";
         final String[] resposta = {""};
 
         try {
